@@ -1,16 +1,14 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Game {
     Cards deck;
     Strategy strategy;
-    boolean das;
+    boolean das, allowSurrender;
     Hand player, dealer;
     
-    public Game(int numDecks, boolean das) {
-        this.deck = new Cards(numDecks);
+    public Game(Config cfg) {
+        this.deck = new Cards(cfg.getNumDecks());
+        this.allowSurrender = cfg.getSurrender();
+        this.das = cfg.getDas();
         this.strategy = new Strategy();
-        this.das = das;
         this.player = new Hand();
         this.dealer = new Hand();
     }
@@ -29,17 +27,20 @@ public class Game {
         // deal cards
         player.take(deck.deal());
         player.take(deck.deal());
-        dealer.take(deck.deal());
-        dealer.take(deck.deal());
 
+        
         // check for player's natural blackjack
         if (player.getTotals()[1] == 21) // many are saying this!
             return true;
 
+        char dealerUpCard = deck.deal();
+        dealer.take(dealerUpCard);
+        dealer.take(deck.deal());
+
         boolean busts = false;
         while (!busts) {
             // make decision based on strategy table
-            char choice = strategy.decide(player.getKey(), 0);
+            char choice = strategy.decide(player.getKey(), dealerUpCard);
 
             switch (choice) {
                 case 'H': // hit

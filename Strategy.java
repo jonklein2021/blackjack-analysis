@@ -55,7 +55,21 @@ public class Strategy {
         table = BASIC_STRATEGY;
     }
 
-    public char decide(String key, int location) {
-        return table.get(key).get(location);
+    public char decide(String key, char dealerCard) {
+        // convert dealer card to index (2 3 4 5 6 7 8 9 T A)
+        int index;
+        switch (dealerCard) {
+            case 'A':
+                index = 9;
+                break;
+            case 'T':
+                index = 8;
+                break;
+            default:
+                index = dealerCard - '0' - 2;
+                break;
+        }
+
+        return table.get(key).get(index);
     }
 }

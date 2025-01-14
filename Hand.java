@@ -2,20 +2,50 @@ import java.util.ArrayList;
 
 public class Hand {
     private ArrayList<Character> cards;
-    private int softTotal, hardTotal;
+    private int total;
+    private boolean hasAce;
     private String key; // key for strategy table
 
     public Hand() {
         cards = new ArrayList<>();
-        softTotal = hardTotal = 0;
+        total = 0;
+        hasAce = false;
         key = "";
     }
 
     /**
-     * Adds a card to the list, recalculate totals and key
+     * Adds a card to the list, recalculate total and key
      */
     public void take(char card) {
         cards.add(card);
+
+        total += getValue(card);
+
+        if (card == 'A') {
+            hasAce = true;
+            if (total > 21) {
+                total -= 10;
+            }
+        }
+
+        // calculate key for strategy table
+        if (cards.size() == 2 && card == 'A') {
+            key = "A," + cards.get(0);
+        } else if (cards.size() == 2 && card == cards.get(0)) {
+            key = card + "," + card;
+        } else {
+            key = total + "";
+        }
+    }
+
+    private int getValue(char card) {
+        if (card == 'A') {
+            return 11;
+        } else if (card == 'T') {
+            return 10;
+        } else {
+            return card - '0';
+        }
     }
 
     /**
@@ -23,7 +53,7 @@ public class Hand {
      */
     public void clear() {
         cards.clear();
-        softTotal = hardTotal = 0;
+        hasAce = false;
         key = "";
     }
 
@@ -31,7 +61,7 @@ public class Hand {
      * @return soft and hard totals as a 2-element array
      */
     public int[] getTotals() {
-        return new int[]{softTotal, hardTotal};
+        return new int[]{hasAce ? total - 10 : total, total};
     }
 
     /**
