@@ -12,12 +12,12 @@ public class Config {
     public Config() {}
 
     public Config(int n, int c, double m, double b, boolean d, boolean s) {
-        numRounds = n;
-        numDecks = c;
-        money = m;
-        minBet = b;
-        das = d;
-        allowSurrender = s;
+        this.numRounds = n;
+        this.numDecks = c;
+        this.money = m;
+        this.minBet = b;
+        this.das = d;
+        this.allowSurrender = s;
     }
 
     public int getNumRounds() {

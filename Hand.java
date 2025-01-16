@@ -54,6 +54,7 @@ public class Hand {
     public void clear() {
         cards.clear();
         hasAce = false;
+        total = 0;
         key = "";
     }
 
@@ -69,5 +70,14 @@ public class Hand {
      */
     public String getKey() {
         return key;
+    }
+
+    public ArrayList<Character> getCards() {
+        return cards;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Cards: %s\nTotal: %s\nKey: %s\n", cards.toString(), hasAce && total > 10 ? total - 10 + ", " + total : total + "", key);
     }
 }

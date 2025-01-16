@@ -12,6 +12,8 @@ public class Strategy {
     // X = split, x = split and double if DAS is offered and hit otherwise
     static {
         // hard Totals
+        BASIC_STRATEGY.put("21", new ArrayList<>(List.of('S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S')));
+        BASIC_STRATEGY.put("20", new ArrayList<>(List.of('S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S')));
         BASIC_STRATEGY.put("19", new ArrayList<>(List.of('S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S')));
         BASIC_STRATEGY.put("18", new ArrayList<>(List.of('S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S')));
         BASIC_STRATEGY.put("17", new ArrayList<>(List.of('S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S')));
